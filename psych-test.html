@@ -430,6 +430,82 @@
                 mobileMenuOverlay.classList.remove('active');
             });
         }
+
+        // 高岛易断彩蛋功能
+        const ichingTrigger = document.querySelector('.easter-egg-trigger');
+        let clickCount = 0;
+        let clickTimer = null;
+
+        if (ichingTrigger) {
+            ichingTrigger.addEventListener('click', () => {
+                clickCount++;
+                
+                // 2秒内点击7次触发
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    clickCount = 0;
+                }, 2000);
+                
+                if (clickCount >= 7) {
+                    openIchingEasterEgg();
+                    clickCount = 0;
+                }
+            });
+        }
+
+        function openIchingEasterEgg() {
+            // 检查是否已经存在彩蛋模态框
+            const existingModal = document.querySelector('.iching-easter-egg-container');
+            if (existingModal) {
+                existingModal.classList.add('active');
+                return;
+            }
+            
+            const modal = document.createElement('div');
+            modal.className = 'iching-easter-egg-container active';
+            modal.innerHTML = `
+                <div class="iching-modal">
+                    <div class="iching-modal-header">
+                        <h2>🔮 高岛易断 · 周易占卜</h2>
+                        <button class="iching-close-btn">&times;</button>
+                    </div>
+                    <div class="iching-modal-body">
+                        <iframe src="https://zmkm2009.github.io/iching-divination/" title="高岛易断"></iframe>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            // 关闭功能
+            const closeBtn = modal.querySelector('.iching-close-btn');
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.remove();
+                }, 300);
+            });
+            
+            // 点击外部关闭
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.remove();
+                    }, 300);
+                }
+            });
+            
+            // ESC键关闭
+            document.addEventListener('keydown', function closeOnEsc(e) {
+                if (e.key === 'Escape') {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.remove();
+                    }, 300);
+                    document.removeEventListener('keydown', closeOnEsc);
+                }
+            });
+        }
     </script>
 </body>
 </html>
