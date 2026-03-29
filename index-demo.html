@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>为华学校 - 启航未来</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: "Microsoft YaHei", sans-serif; color: #2C2C2C; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        img { max-width: 100%; display: block; }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        /* VI配色变量 - 中国红 */
+        :root {
+            --vi-red: #C8102E;  /* 中国红（国旗红） */
+            --vi-red-dark: #9C0D23;  /* 深中国红 */
+            --vi-red-light: #E6395A;  /* 浅中国红 */
+            --vi-gold: #FFD700;  /* 金色 */
+            --vi-red-bg: #FFF5F6;  /* 淡红色背景 */
+        }
+        
+        /* 顶部导航 */
+        .header { background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
+        .logo { display: flex; align-items: center; gap: 8px; }
+        .logo-text { font-size: 24px; font-weight: bold; color: var(--vi-red); }
+        .nav { display: flex; gap: 24px; }
+        .nav-link { font-size: 16px; color: #2C2C2C; padding: 8px 16px; border-radius: 4px; }
+        .nav-link:hover { color: var(--vi-red); background: var(--vi-red-bg); }
+        .nav-link.active { color: var(--vi-red); font-weight: bold; }
+        
+        /* 轮播图 */
+        .banner { background: linear-gradient(135deg, var(--vi-red) 0%, var(--vi-red-dark) 100%); color: white; min-height: 500px; display: flex; align-items: center; }
+        .banner-content { text-align: center; padding: 48px 0; }
+        .banner-title { font-size: 48px; font-weight: bold; margin-bottom: 16px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        .banner-subtitle { font-size: 24px; margin-bottom: 32px; opacity: 0.95; }
+        .banner-buttons { display: flex; gap: 16px; justify-content: center; }
+        
+        /* 按钮 */
+        .btn { display: inline-block; padding: 16px 32px; font-size: 16px; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: none; }
+        .btn-primary { background: white; color: var(--vi-red); }
+        .btn-primary:hover { background: var(--vi-red-bg); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        .btn-secondary { background: transparent; color: white; border: 2px solid white; }
+        .btn-secondary:hover { background: white; color: var(--vi-red); transform: translateY(-2px); }
+        
+        /* 区块 */
+        .section { padding: 48px 0; }
+        .section-light { background: #F5F5F5; }
+        .section-header { text-align: center; margin-bottom: 32px; }
+        .section-title { font-size: 36px; font-weight: bold; color: #2C2C2C; margin-bottom: 16px; }
+        .section-line { width: 60px; height: 4px; background: var(--vi-red); margin: 0 auto; border-radius: 2px; }
+        
+        /* 学校简介 */
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+        .about-subtitle { font-size: 28px; color: var(--vi-red); margin-bottom: 16px; }
+        .about-desc { font-size: 16px; color: #555; line-height: 1.8; margin-bottom: 16px; }
+        .about-features { margin-top: 24px; }
+        .feature-item { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 16px; color: #555; }
+        .feature-icon { color: var(--vi-red); font-weight: bold; font-size: 18px; }
+        .about-img-placeholder { width: 100%; height: 400px; background: linear-gradient(135deg, #FFE8E8 0%, #FFD4D4 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        
+        /* 办学特色 */
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .feature-card { background: white; padding: 32px; border-radius: 12px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-8px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+        .feature-card-icon { font-size: 48px; margin-bottom: 16px; }
+        .feature-card-title { font-size: 20px; font-weight: bold; color: #2C2C2C; margin-bottom: 8px; }
+        .feature-card-desc { font-size: 14px; color: #555; line-height: 1.6; }
+        
+        /* 师资力量 */
+        .teachers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .teacher-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: all 0.3s ease; }
+        .teacher-card:hover { transform: translateY(-8px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        .teacher-photo-placeholder { width: 100%; height: 250px; background: linear-gradient(135deg, #FFE8E8 0%, #FFD4D4 100%); display: flex; align-items: center; justify-content: center; font-size: 48px; }
+        .teacher-name { font-size: 18px; font-weight: bold; color: #2C2C2C; padding: 16px; text-align: center; }
+        .teacher-title { font-size: 14px; color: var(--vi-red); padding: 0 16px; text-align: center; margin-bottom: 8px; }
+        .teacher-desc { font-size: 14px; color: #555; padding: 0 16px 16px; text-align: center; line-height: 1.5; }
+        
+        /* 招生信息 */
+        .admissions-content { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .admissions-subtitle { font-size: 28px; color: var(--vi-red); margin-bottom: 24px; }
+        .admissions-list { margin-bottom: 24px; }
+        .admissions-item { display: flex; margin-bottom: 16px; font-size: 16px; }
+        .admissions-label { font-weight: bold; color: #2C2C2C; min-width: 100px; }
+        .admissions-text { color: #555; }
+        .admissions-actions { display: flex; gap: 16px; }
+        .admissions-notice { background: var(--vi-red-bg); padding: 32px; border-radius: 12px; }
+        .notice-title { font-size: 20px; color: var(--vi-red); margin-bottom: 16px; }
+        .notice-list { padding-left: 24px; }
+        .notice-list li { margin-bottom: 8px; font-size: 15px; color: #555; line-height: 1.6; }
+        
+        /* 心理测评 */
+        .psych-content { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; align-items: center; }
+        .psych-subtitle { font-size: 28px; color: var(--vi-red); margin-bottom: 16px; }
+        .psych-desc { font-size: 16px; color: #555; line-height: 1.8; margin-bottom: 16px; }
+        .psych-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+        .psych-feature { background: white; padding: 16px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+        .psych-feature-title { font-size: 16px; font-weight: bold; color: #2C2C2C; margin-bottom: 4px; }
+        .psych-feature-desc { font-size: 14px; color: #555; }
+        .psych-actions { text-align: center; padding: 32px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        .psych-note { margin-top: 16px; font-size: 14px; color: #888; }
+        
+        /* 联系我们 */
+        .contact-content { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .contact-item { display: flex; gap: 16px; margin-bottom: 24px; padding: 24px; background: white; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: all 0.3s ease; }
+        .contact-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); transform: translateX(8px); }
+        .contact-icon { font-size: 32px; flex-shrink: 0; }
+        .contact-label { font-size: 16px; font-weight: bold; color: #2C2C2C; margin-bottom: 4px; }
+        .contact-text { font-size: 15px; color: #555; }
+        .contact-map { height: 400px; background: #F5F5F5; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+        
+        /* 底部 */
+        .footer { background: #2C2C2C; color: white; padding: 48px 0 24px; }
+        .footer-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 32px; }
+        .footer-title { font-size: 24px; font-weight: bold; color: var(--vi-red); margin-bottom: 8px; }
+        .footer-desc { font-size: 16px; opacity: 0.9; }
+        .footer-subtitle { font-size: 18px; font-weight: bold; margin-bottom: 16px; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: white; opacity: 0.8; }
+        .footer-links a:hover { color: var(--vi-red); opacity: 1; }
+        .footer-info { font-size: 14px; opacity: 0.8; margin-bottom: 4px; }
+        .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .copyright { font-size: 14px; opacity: 0.7; }
+        
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            .features-grid, .teachers-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-content, .admissions-content, .psych-content, .contact-content { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 16px; }
+            .nav { flex-wrap: wrap; justify-content: center; }
+            .banner-title { font-size: 32px; }
+            .banner-buttons { flex-direction: column; align-items: center; }
+            .features-grid, .teachers-grid, .footer-content, .psych-features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-text">🏫 为华学校</span>
+                </div>
+                <nav class="nav">
+                    <a href="#home" class="nav-link active">首页</a>
+                    <a href="#about" class="nav-link">学校概况</a>
+                    <a href="#teachers" class="nav-link">师资力量</a>
+                    <a href="#admissions" class="nav-link">招生信息</a>
+                    <a href="#psych-test" class="nav-link">心理测评</a>
+                    <a href="#contact" class="nav-link">联系我们</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 轮播图 -->
+    <section class="banner" id="home">
+        <div class="banner-content">
+            <h1 class="banner-title">为华学校 · 启航未来</h1>
+            <p class="banner-subtitle">2025年9月 正式开学招生</p>
+            <div class="banner-buttons">
+                <a href="#admissions" class="btn btn-primary">立即报名</a>
+                <a href="#about" class="btn btn-secondary">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学校简介 -->
+    <section class="section section-light" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">学校简介</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 class="about-subtitle">立德树人 · 为国育才</h3>
+                    <p class="about-desc">
+                        为华学校是一所现代化的民办初级中学，成立于2025年9月。学校秉持"立德树人、为国育才"的办学理念，致力于培养具有创新精神和实践能力的新时代青少年。
+                    </p>
+                    <p class="about-desc">
+                        学校拥有先进的教学设施、优质的师资团队和完善的教育体系，注重学生的全面发展，通过多元化的课程和个性化的辅导，帮助每一位学生实现自己的潜能。
+                    </p>
+                    <ul class="about-features">
+                        <li class="feature-item"><span class="feature-icon">✓</span><span>优质师资，经验丰富</span></li>
+                        <li class="feature-item"><span class="feature-icon">✓</span><span>小班教学，关注个体</span></li>
+                        <li class="feature-item"><span class="feature-icon">✓</span><span>设施先进，环境优美</span></li>
+                        <li class="feature-item"><span class="feature-icon">✓</span><span>全面发展，快乐成长</span></li>
+                    </ul>
+                </div>
+                <div class="about-img-placeholder">
+                    <span style="font-size: 48px;">🏛️</span>
+                    <span style="display:block;font-size:16px;color:#666;margin-top:8px;">校园环境图片</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 办学特色 -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">办学特色</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-icon">📚</div>
+                    <h3 class="feature-card-title">优质课程</h3>
+                    <p class="feature-card-desc">开设丰富多元的课程体系，既注重基础学科，又拓展素质教育。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon">👨‍🏫</div>
+                    <h3 class="feature-card-title">名师团队</h3>
+                    <p class="feature-card-desc">拥有一支高素质的教师队伍，教学经验丰富，关爱每一位学生。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon">🏫</div>
+                    <h3 class="feature-card-title">先进设施</h3>
+                    <p class="feature-card-desc">现代化教学设备、多媒体教室、图书馆、实验室等。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon">❤️</div>
+                    <h3 class="feature-card-title">心理健康</h3>
+                    <p class="feature-card-desc">配备专业心理老师，关注学生心理健康，定期开展心理辅导。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 师资力量 -->
+    <section class="section section-light" id="teachers">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">师资力量</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <div class="teacher-photo-placeholder">👩‍🏫</div>
+                    <h3 class="teacher-name">张老师</h3>
+                    <p class="teacher-title">语文教师</p>
+                    <p class="teacher-desc">从事中学语文教学15年，教学经验丰富。</p>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo-placeholder">👨‍🏫</div>
+                    <h3 class="teacher-name">李老师</h3>
+                    <p class="teacher-title">数学教师</p>
+                    <p class="teacher-desc">硕士研究生学历，多次获得市级教学比赛一等奖。</p>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo-placeholder">👩‍🏫</div>
+                    <h3 class="teacher-name">王老师</h3>
+                    <p class="teacher-title">英语教师</p>
+                    <p class="teacher-desc">英语专业八级，擅长互动式教学。</p>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo-placeholder">👨‍⚕️</div>
+                    <h3 class="teacher-name">刘老师</h3>
+                    <p class="teacher-title">心理教师</p>
+                    <p class="teacher-desc">国家二级心理咨询师，专注青少年心理健康教育。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 招生信息 -->
+    <section class="section" id="admissions">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">招生信息</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="admissions-content">
+                <div class="admissions-info">
+                    <h3 class="admissions-subtitle">2025年秋季招生</h3>
+                    <ul class="admissions-list">
+                        <li class="admissions-item"><span class="admissions-label">招生对象：</span><span class="admissions-text">小学六年级毕业生</span></li>
+                        <li class="admissions-item"><span class="admissions-label">招生名额：</span><span class="admissions-text">200人（4个班级）</span></li>
+                        <li class="admissions-item"><span class="admissions-label">报名时间：</span><span class="admissions-text">2025年5月1日 - 8月31日</span></li>
+                        <li class="admissions-item"><span class="admissions-label">报名方式：</span><span class="admissions-text">线上报名或到校咨询</span></li>
+                        <li class="admissions-item"><span class="admissions-label">咨询电话：</span><span class="admissions-text">0851-XXXXXXX</span></li>
+                    </ul>
+                    <div class="admissions-actions">
+                        <a href="https://jinshuju.net/f/XXXXX" target="_blank" class="btn btn-primary">在线报名</a>
+                        <a href="#contact" class="btn btn-primary">联系我们</a>
+                    </div>
+                </div>
+                <div class="admissions-notice">
+                    <h3 class="notice-title">📋 报名须知</h3>
+                    <ol class="notice-list">
+                        <li>请填写真实有效的学生信息</li>
+                        <li>报名后请在3个工作日内等待学校电话通知</li>
+                        <li>需要准备学生身份证、户口本复印件</li>
+                        <li>学校将对报名学生进行简单的面谈</li>
+                        <li>具体开学时间请关注学校通知</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 心理测评 -->
+    <section class="section section-light" id="psych-test">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">心理测评</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="psych-content">
+                <div class="psych-text">
+                    <h3 class="psych-subtitle">关注学生心理健康</h3>
+                    <p class="psych-desc">
+                        为华学校高度重视学生的心理健康发展，配备专业心理教师，定期开展心理测评和辅导活动。
+                    </p>
+                    <p class="psych-desc">
+                        通过科学的测评工具，了解学生的心理状态，及时发现和解决问题，帮助学生健康快乐地成长。
+                    </p>
+                    <div class="psych-features">
+                        <div class="psych-feature">
+                            <h4 class="psych-feature-title">入学测试</h4>
+                            <p class="psych-feature-desc">新生入学时进行全面心理评估</p>
+                        </div>
+                        <div class="psych-feature">
+                            <h4 class="psych-feature-title">定期测评</h4>
+                            <p class="psych-feature-desc">每学期进行心理健康检查</p>
+                        </div>
+                        <div class="psych-feature">
+                            <h4 class="psych-feature-title">个别辅导</h4>
+                            <p class="psych-feature-desc">针对有需要的学生提供一对一辅导</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="psych-actions">
+                    <a href="https://zmkm2009.github.io/weihua-psych-test/" target="_blank" class="btn btn-primary" style="display:block;margin-bottom:16px;">开始心理测评</a>
+                    <p class="psych-note">此测评工具由为华学校心理组提供</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">联系我们</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4 class="contact-label">学校地址</h4>
+                            <p class="contact-text">贵州省贵阳市XX区XX路XX号</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4 class="contact-label">咨询电话</h4>
+                            <p class="contact-text">0851-XXXXXXX</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4 class="contact-label">电子邮箱</h4>
+                            <p class="contact-text">contact@weihua-school.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕐</div>
+                        <div class="contact-details">
+                            <h4 class="contact-label">咨询时间</h4>
+                            <p class="contact-text">周一至周五 9:00-17:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <div style="text-align:center;">
+                        <span style="font-size:48px;">🗺️</span>
+                        <p style="font-size:14px;color:#999;margin-top:16px;">学校地图位置（后续添加）</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">为华学校</h3>
+                    <p class="footer-desc">立德树人 · 为国育才</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">学校概况</a></li>
+                        <li><a href="#teachers">师资力量</a></li>
+                        <li><a href="#admissions">招生信息</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">联系方式</h4>
+                    <p class="footer-info">电话：0851-XXXXXXX</p>
+                    <p class="footer-info">邮箱：contact@weihua-school.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 为华学校 版权所有 | 备案号：黔ICP备XXXXXXXX号</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

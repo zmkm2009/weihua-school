@@ -1,0 +1,370 @@
+/* 动画效果样式 */
+
+/* 轮播图动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide.active .slide-content {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* 数字计数动画 */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.stat-number.animate {
+    animation: countUp 0.6s ease-out;
+}
+
+/* 悬停动画 */
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.teacher-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.gallery-item:hover .gallery-caption {
+    opacity: 1;
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.05);
+}
+
+.review-card {
+    transition: all 0.5s ease-in-out;
+}
+
+/* 导航栏滚动动画 */
+.navbar {
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-md);
+}
+
+/* 按钮悬停动画 */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* 导航链接动画 */
+.nav-link {
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--vi-red);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* 新闻项动画 */
+.news-item {
+    transition: all 0.3s ease;
+}
+
+.news-item:hover {
+    background: var(--bg-light);
+    padding-left: 12px;
+}
+
+/* 卡片进入动画 */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.course-card:nth-child(1) {
+    animation: fadeInLeft 0.6s ease-out;
+}
+
+.course-card:nth-child(2) {
+    animation: fadeInUp 0.6s ease-out 0.1s backwards;
+}
+
+.course-card:nth-child(3) {
+    animation: fadeInRight 0.6s ease-out 0.2s backwards;
+}
+
+.course-card:nth-child(4) {
+    animation: fadeInLeft 0.6s ease-out 0.3s backwards;
+}
+
+/* 统计卡片动画 */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.stat-card:hover .stat-icon {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+/* 心理特色动画 */
+.psych-feature:hover .psych-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.psych-feature .psych-icon {
+    transition: transform 0.3s ease;
+}
+
+/* 表单输入框动画 */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--vi-red);
+    box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.1);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    transition: all 0.3s ease;
+}
+
+/* 轮播图切换动画 */
+.slide {
+    transition: opacity 0.8s ease-in-out;
+}
+
+.slide-bg {
+    transition: transform 0.8s ease-in-out;
+}
+
+.slide:hover .slide-bg {
+    transform: scale(1.05);
+}
+
+/* 评价卡片切换动画 */
+.review-card.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.review-card {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+/* 滚动显示动画 */
+@keyframes scrollReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-header {
+    animation: scrollReveal 0.8s ease-out;
+}
+
+/* 加载动画 */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    animation: spin 1s linear infinite;
+}
+
+/* 呼吸灯效果 */
+@keyframes breathe {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.btn-primary:hover {
+    animation: breathe 1.5s ease-in-out infinite;
+}
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 图片悬停放大 */
+.gallery-image {
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.1);
+}
+
+/* 播放按钮动画 */
+.play-button {
+    transition: all 0.3s ease;
+}
+
+.play-button:hover {
+    transform: scale(1.2);
+    background: var(--vi-red);
+}
+
+/* 联系图标动画 */
+.contact-icon {
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover .contact-icon {
+    transform: scale(1.2);
+    color: var(--vi-red);
+}
+
+/* 社交链接动画 */
+.social-link {
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--vi-red);
+    transform: translateY(-3px);
+}
+
+/* 底部链接动画 */
+.footer-links a {
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--vi-red);
+    padding-left: 5px;
+}
+
+/* 进场动画序列 */
+@keyframes cascade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.news-column:nth-child(1) {
+    animation: cascade 0.6s ease-out;
+}
+
+.news-column:nth-child(2) {
+    animation: cascade 0.6s ease-out 0.2s backwards;
+}
+
+.news-column:nth-child(3) {
+    animation: cascade 0.6s ease-out 0.4s backwards;
+}
+
+/* 教师卡片序列动画 */
+.teacher-card:nth-child(1) {
+    animation: fadeInLeft 0.6s ease-out;
+}
+
+.teacher-card:nth-child(2) {
+    animation: fadeInUp 0.6s ease-out 0.1s backwards;
+}
+
+.teacher-card:nth-child(3) {
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+
+.teacher-card:nth-child(4) {
+    animation: fadeInRight 0.6s ease-out 0.3s backwards;
+}
+
+/* 画廊动画 */
+@keyframes gridReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.gallery-item {
+    animation: gridReveal 0.6s ease-out backwards;
+}
+
+.gallery-item:nth-child(1) { animation-delay: 0s; }
+.gallery-item:nth-child(2) { animation-delay: 0.1s; }
+.gallery-item:nth-child(3) { animation-delay: 0.2s; }
+.gallery-item:nth-child(4) { animation-delay: 0.3s; }
+.gallery-item:nth-child(5) { animation-delay: 0.4s; }
+.gallery-item:nth-child(6) { animation-delay: 0.5s; }

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理测评 - 为华学校</title>
+    <meta name="description" content="为华学校提供专业的心理测评服务，帮助学生了解自己的性格特点和潜在能力">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .psych-test-wrapper {
+            min-height: 100vh;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .psych-test-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem auto;
+        }
+        .psych-test-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .psych-test-header h1 {
+            color: #C8102E;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .psych-test-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .psych-test-content {
+            iframe {
+                width: 100%;
+                height: 600px;
+                border: none;
+                border-radius: 8px;
+            }
+        }
+        .test-info {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        .test-info h3 {
+            color: #C8102E;
+            margin-bottom: 1rem;
+        }
+        .test-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        .test-info li {
+            padding: 0.5rem 0;
+            color: #555;
+        }
+        .test-info li:before {
+            content: "✓ ";
+            color: #C8102E;
+            font-weight: bold;
+        }
+        .psych-test-cta {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .psych-test-cta a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #C8102E;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .psych-test-cta a:hover {
+            background: #9C0D23;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(200, 16, 46, 0.3);
+        }
+        
+        /* 高岛易断彩蛋样式 */
+        .iching-easter-egg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+        .iching-easter-egg-container.active {
+            display: flex;
+        }
+        .iching-modal {
+            background: white;
+            border-radius: 16px;
+            max-width: 900px;
+            width: 95%;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+        .iching-modal-header {
+            background: linear-gradient(135deg, #C8102E 0%, #9C0D23 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .iching-modal-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .iching-close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .iching-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        .iching-modal-body {
+            flex: 1;
+            padding: 0;
+            overflow: hidden;
+        }
+        .iching-modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .iching-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #C8102E;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .iching-hint.show {
+            opacity: 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="为华logo（方形透明）.png" alt="为华学校Logo">
+                <span class="logo-text">为华学校</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="about.html" class="nav-link">学校概况</a></li>
+                <li><a href="courses.html" class="nav-link">课程设置</a></li>
+                <li><a href="teachers.html" class="nav-link">师资力量</a></li>
+                <li><a href="campus-life.html" class="nav-link">校园生活</a></li>
+                <li><a href="admissions.html" class="nav-link">招生信息</a></li>
+                <li><a href="psych-test.html" class="nav-link active">心理测评</a></li>
+                <li><a href="contact.html" class="nav-link">联系我们</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <header class="page-header" style="background: linear-gradient(135deg, #C8102E 0%, #9C0D23 100%);">
+        <div class="container">
+            <div class="page-header-content">
+                <h1 class="page-title">心理测评</h1>
+                <p class="page-subtitle">了解自己 · 成长自我</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- 心理测评容器 -->
+    <section class="psych-test-wrapper">
+        <div class="psych-test-container">
+            <div class="psych-test-header">
+                <h1>初中生入学心理测试</h1>
+                <p>基于荣格心理学理论的专业测评系统</p>
+            </div>
+
+            <!-- 测试信息 -->
+            <div class="test-info">
+                <h3>测试说明</h3>
+                <ul>
+                    <li>测试包含20道题目，预计需要10-15分钟完成</li>
+                    <li>测试结果将分析你的性格类型和潜在能力</li>
+                    <li>测试结果仅供参考，不代表最终评价</li>
+                    <li>请根据你的第一直觉回答，不要过度思考</li>
+                    <li>测试结果完全保密，仅用于帮助学生自我认知</li>
+                </ul>
+            </div>
+
+            <!-- 嵌入已部署的心理测试系统 -->
+            <div class="psych-test-content">
+                <iframe src="https://zmkm2009.github.io/weihua-psych-test/" title="初中生入学心理测试"></iframe>
+            </div>
+
+            <!-- 开始测试按钮 -->
+            <div class="psych-test-cta">
+                <p>如果上方测试无法正常显示，请点击下方按钮直接访问测试页面：</p>
+                <a href="https://zmkm2009.github.io/weihua-psych-test/" target="_blank">🚀 开始心理测试</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 心理服务介绍 -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">我们的心理服务</h2>
+                <div class="section-line center"></div>
+                <p class="section-desc">为华学校重视学生的心理健康发展，提供全方位的心理支持服务</p>
+            </div>
+            <div class="psych-services">
+                <div class="service-card fade-in-up">
+                    <div class="service-icon easter-egg-trigger" data-trigger="iching">🧠</div>
+                    <h3>心理测评</h3>
+                    <p>通过专业的心理测评工具，了解学生的性格特点、学习风格、潜在能力等，为个性化教育提供依据。</p>
+                </div>
+                <div class="service-card fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="service-icon">💬</div>
+                    <h3>个体咨询</h3>
+                    <p>提供一对一的心理咨询服务，帮助学生解决学习压力、情绪管理、人际交往等方面的问题。</p>
+                </div>
+                <div class="service-card fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="service-icon">👥</div>
+                    <h3>团体辅导</h3>
+                    <p>开展主题团体辅导活动，如情绪管理、压力应对、人际交往等，促进学生的心理健康成长。</p>
+                </div>
+                <div class="service-card fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="service-icon">📚</div>
+                    <h3>心理课程</h3>
+                    <p>开设心理健康教育课程，教授学生心理调适方法，提升学生的心理素养和自我管理能力。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专业团队 -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">专业团队</h2>
+                <div class="section-line center"></div>
+            </div>
+            <div class="team-grid">
+                <div class="team-card fade-in-up">
+                    <div class="team-avatar">
+                        <img src="https://via.placeholder.com/200x200/C8102E/FFFFFF?text=心理教师1" alt="心理教师">
+                    </div>
+                    <h3>张老师</h3>
+                    <p class="team-title">心理咨询师</p>
+                    <p class="team-desc">10年心理咨询经验，擅长青少年心理问题疏导</p>
+                </div>
+                <div class="team-card fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="team-avatar">
+                        <img src="https://via.placeholder.com/200x200/9C0D23/FFFFFF?text=心理教师2" alt="心理教师">
+                    </div>
+                    <h3>李老师</h3>
+                    <p class="team-title">心理辅导师</p>
+                    <p class="team-desc">8年心理辅导经验，专注于学生学习压力管理</p>
+                </div>
+                <div class="team-card fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="team-avatar">
+                        <img src="https://via.placeholder.com/200x200/E6395A/FFFFFF?text=心理教师3" alt="心理教师">
+                    </div>
+                    <h3>王老师</h3>
+                    <p class="team-title">心理教师</p>
+                    <p class="team-desc">6年心理健康教育经验，擅长团体心理辅导</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>为华学校秉承"立德树人、为国育才"的办学理念，致力于培养德智体美劳全面发展的新时代人才。</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="微信公众号">
+                            <i></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="微博">
+                            <i></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="抖音">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">学校概况</a></li>
+                        <li><a href="courses.html">课程设置</a></li>
+                        <li><a href="teachers.html">师资力量</a></li>
+                        <li><a href="admissions.html">招生信息</a></li>
+                        <li><a href="psych-test.html">心理测评</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="contact-icon"></i>
+                            <span>地址：XX省XX市XX区XX路XX号</span>
+                        </li>
+                        <li>
+                            <i class="contact-icon"></i>
+                            <span>电话：400-XXX-XXXX</span>
+                        </li>
+                        <li>
+                            <i class="contact-icon"></i>
+                            <span>邮箱：contact@weihua-school.edu</span>
+                        </li>
+                        <li>
+                            <i class="contact-icon"></i>
+                            <span>招生热线：XXX-XXXX-XXXX</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>校园风采</h3>
+                    <div class="footer-gallery">
+                        <img src="https://via.placeholder.com/100x100/FFD700?text=校园1" alt="校园风景1">
+                        <img src="https://via.placeholder.com/100x100/C8102E?text=校园2" alt="校园风景2">
+                        <img src="https://via.placeholder.com/100x100/9C0D23?text=校园3" alt="校园风景3">
+                        <img src="https://via.placeholder.com/100x100/E6395A?text=校园4" alt="校园风景4">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 为华学校 版权所有</p>
+                    <p>备案号：京ICP备XXXXXXXX号</p>
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#">隐私政策</a>
+                    <a href="#">使用条款</a>
+                    <a href="#">网站地图</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 移动端菜单遮罩 -->
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                mobileMenuOverlay.classList.toggle('active');
+            });
+        }
+
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+            });
+        }
+    </script>
+</body>
+</html>
