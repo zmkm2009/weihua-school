@@ -1,0 +1,69 @@
+{
+  "news": {
+    "latest": [
+      {
+        "date": "2025-03-29",
+        "title": "2025年春季招生简章发布",
+        "link": "#admissions"
+      },
+      {
+        "date": "2025-03-25",
+        "title": "清明节放假安排通知",
+        "link": "#"
+      },
+      {
+        "date": "2025-03-20",
+        "title": "家长开放日活动邀请",
+        "link": "#"
+      }
+    ],
+    "campus": [
+      {
+        "date": "2025-03-28",
+        "title": "为华学校开展学雷锋志愿服务活动",
+        "link": "#"
+      },
+      {
+        "date": "2025-03-22",
+        "title": "我校学生在全市作文竞赛中荣获一等奖",
+        "link": "#"
+      },
+      {
+        "date": "2025-03-15",
+        "title": "春季运动会圆满落幕",
+        "link": "#campus-life"
+      }
+    ],
+    "achievements": [
+      {
+        "date": "2025-03-20",
+        "title": "我校数学竞赛成绩再创新高",
+        "link": "#"
+      },
+      {
+        "date": "2025-03-10",
+        "title": "英语口语比赛斩获多项大奖",
+        "link": "#"
+      },
+      {
+        "date": "2025-03-05",
+        "title": "科技创新大赛获奖喜报",
+        "link": "#"
+      }
+    ]
+  },
+  "stats": {
+    "students": 500,
+    "teachers": 100,
+    "courses": 50,
+    "satisfaction": 98
+  },
+  "school": {
+    "name": "为华学校",
+    "slogan": "立德树人 · 为国育才",
+    "subtitle": "培养德智体美劳全面发展的新时代人才",
+    "phone": "010-12345678",
+    "email": "contact@weihua-school.com",
+    "address": "北京市海淀区中关村大街123号"
+  }
+}
