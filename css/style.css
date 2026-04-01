@@ -598,8 +598,14 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 64px;
-    color: white;
+    overflow: hidden;
+}
+
+.teacher-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
 }
 
 .teacher-name {
