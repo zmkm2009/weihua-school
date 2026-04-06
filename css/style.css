@@ -1158,3 +1158,25 @@ ul {
         display: flex;
     }
 }
+
+/* ========== 视频容器 ========== */
+.video-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.video-container video {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+
+/* 视频区块副标题 */
+.section-subtitle {
+    font-size: 16px;
+    color: var(--text-medium);
+    margin-top: 12px;
+    text-align: center;
+}
